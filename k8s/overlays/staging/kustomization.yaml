@@ -20,4 +20,5 @@ commonLabels:
 
 images:
 - name: replayweb-page
-  newTag: staging-latest
+  newName: williamveale/replayweb-page
+  newTag: staging
