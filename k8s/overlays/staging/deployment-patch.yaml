@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: replayweb-page
+  namespace: replayweb
+spec:
+  replicas: 1  # Reduced replicas for staging
+  template:
+    spec:
+      containers:
+      - name: replayweb-page
+        resources:
+          requests:
+            memory: "32Mi"  # Reduced resources for staging
+            cpu: "25m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"

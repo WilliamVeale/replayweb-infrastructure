@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: replayweb-page
+  namespace: replayweb
+spec:
+  tls:
+  - hosts:
+    - staging.libutk.com
+    secretName: staging-replayweb-page-tls
+  rules:
+  - host: staging.libutk.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: staging-replayweb-page
+            port:
+              number: 80

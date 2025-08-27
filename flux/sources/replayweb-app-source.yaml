@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: replayweb-app
+  namespace: flux-system
+spec:
+  interval: 5m
+  ref:
+    branch: main
+  url: https://github.com/webrecorder/replayweb.page  # Original app repository

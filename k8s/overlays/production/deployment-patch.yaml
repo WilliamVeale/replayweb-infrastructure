@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: replayweb-page
+  namespace: replayweb
+spec:
+  replicas: 3  # Higher replicas for production
+  template:
+    spec:
+      containers:
+      - name: replayweb-page
+        resources:
+          requests:
+            memory: "128Mi"  # Higher resources for production
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"

@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: replayweb-page-production
+
+namespace: replayweb
+
+resources:
+- ../../base
+
+patchesStrategicMerge:
+- ingress-patch.yaml
+- deployment-patch.yaml
+
+namePrefix: prod-
+
+commonLabels:
+  environment: production
+
+images:
+- name: replayweb-page
+  newTag: v2.3.16  # Use semantic versioning for production

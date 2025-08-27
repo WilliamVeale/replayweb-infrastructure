@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: replayweb-page
+  namespace: replayweb
+  labels:
+    app.kubernetes.io/name: replayweb-page
+    app.kubernetes.io/component: webapp
+  annotations:
+    # Enable TLS/SSL (required for service workers)
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    
+    # nginx-specific annotations
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+    
+    # CORS headers for cross-origin requests
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control"
+    
+    # Performance optimizations
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+    
+    # Azure-specific optimizations
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - libutk.com
+    secretName: replayweb-page-tls
+  rules:
+  - host: libutk.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: replayweb-page
+            port:
+              number: 80

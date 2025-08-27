@@ -1,0 +1,26 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: production-cluster
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: "./flux"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: replayweb-infrastructure
+  validation: client
+  patches:
+    - patch: |
+        apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+        kind: Kustomization
+        metadata:
+          name: replayweb-staging
+          namespace: flux-system
+        spec:
+          suspend: true  # Disable staging in production cluster
+      target:
+        kind: Kustomization
+        name: replayweb-staging

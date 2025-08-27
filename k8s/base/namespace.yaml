@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: replayweb
+  labels:
+    name: replayweb
+    app.kubernetes.io/name: replayweb-page
+    app.kubernetes.io/component: namespace

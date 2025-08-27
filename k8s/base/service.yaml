@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: replayweb-page
+  namespace: replayweb
+  labels:
+    app.kubernetes.io/name: replayweb-page
+    app.kubernetes.io/component: webapp
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: replayweb-page
+    app.kubernetes.io/component: webapp
